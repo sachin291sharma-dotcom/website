@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-pc@s$*72s8hx$w4=bg08m^#zb32o%y&yy=253x=fmg=*)nhg&r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1","thinksmart.odoo.com"]
+ALLOWED_HOSTS = ["https://dragus.pythonanywhere.com/"]
 
 
 # Application definition
