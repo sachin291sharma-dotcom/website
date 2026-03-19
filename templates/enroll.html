@@ -1,0 +1,518 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enroll Now - THINK SMART Institute | Secure Your Seat</title>
+
+<!-- Bootstrap + Fonts + AOS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+* { font-family: 'Poppins', sans-serif; }
+
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #111827 100%);
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(20px);
+    padding: 15px 40px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.navbar .logo {
+    color: #facc15 !important;
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+.navbar .nav-link {
+    color: #fff !important;
+    margin: 0 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.navbar .nav-link.active {
+    color: #facc15 !important;
+}
+.navbar .nav-link:hover {
+    color: #facc15 !important;
+    transform: translateY(-2px);
+}
+.navbar .btn {
+    background: linear-gradient(45deg, #facc15, #fbbf24);
+    border: none;
+    font-weight: 600;
+    padding: 10px 25px;
+}
+
+/* Hero Header */
+.enroll-hero {
+    min-height: 70vh;
+    background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.8)), 
+                url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+/* Enrollment Form */
+.enroll-container {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(250,204,21,0.3);
+    border-radius: 30px;
+    padding: 60px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 35px 80px rgba(0,0,0,0.4);
+}
+
+/* Progress Bar */
+.progress-container {
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    height: 8px;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+.progress-fill {
+    background: linear-gradient(90deg, #facc15, #fbbf24);
+    height: 100%;
+    border-radius: 50px;
+    transition: width 0.5s ease;
+    width: 25%;
+}
+.progress-step {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+}
+.progress-step.active {
+    color: #facc15;
+}
+
+/* Form Fields */
+.form-floating {
+    margin-bottom: 25px;
+}
+.form-control {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(250,204,21,0.2);
+    color: #fff;
+    border-radius: 18px;
+    padding: 20px 25px;
+    font-size: 1.1rem;
+    height: 65px;
+    transition: all 0.3s ease;
+}
+.form-control::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+.form-control:focus {
+    background: rgba(255,255,255,0.15);
+    border-color: #facc15;
+    box-shadow: 0 0 0 0.4rem rgba(250,204,21,0.2);
+    color: #fff;
+}
+.form-floating label {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+}
+
+/* Course Cards Preview */
+.course-preview {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(250,204,21,0.2);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.course-preview:hover {
+    border-color: #facc15;
+    background: rgba(250,204,21,0.1);
+    transform: translateY(-5px);
+}
+.course-preview.active {
+    border-color: #facc15;
+    background: linear-gradient(135deg, rgba(250,204,21,0.15), rgba(251,191,36,0.1));
+    box-shadow: 0 15px 35px rgba(250,204,21,0.3);
+}
+
+/* Submit Button */
+.btn-submit {
+    background: linear-gradient(45deg, #facc15, #fbbf24);
+    border: none;
+    width: 100%;
+    padding: 22px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: 0.6s;
+}
+.btn-submit:hover::before {
+    left: 100%;
+}
+.btn-submit:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(250,204,21,0.4);
+}
+
+/* WhatsApp Button */
+.whatsapp-btn {
+    background: #25D366;
+    border: none;
+    width: 100%;
+    padding: 18px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 20px;
+    color: #fff;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.whatsapp-btn:hover {
+    background: #128C7E;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(37,211,102,0.4);
+}
+
+/* Success Animation */
+.success-animation {
+    display: none;
+    text-align: center;
+    padding: 60px;
+}
+.success-check {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(45deg, #10b981, #059669);
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    animation: bounceIn 0.8s ease;
+}
+@keyframes bounceIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .enroll-container { margin: 20px; padding: 40px 30px; border-radius: 25px; }
+}
+</style>
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <h2 class="logo mb-0">THINK SMART</h2>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'course' %}">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'review' %}">Reviews</a></li>
+                
+            </ul>
+            <a class="btn ms-3" href="{% url 'enroll' %}">
+                <i class="fas fa-check-circle me-2"></i>Enroll Now
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="enroll-hero text-center" data-aos="zoom-in">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4" style="text-shadow: 0 0 30px rgba(250,204,21,0.5);">
+            Secure Your Seat Today
+        </h1>
+        <p class="lead mb-5" style="font-size: 1.4rem; max-width: 700px; margin: 0 auto;">
+            Join 5200+ students | Limited seats for Class 9-12 batches | Next batch starts soon!
+        </p>
+    </div>
+</section>
+
+<!-- Enrollment Form -->
+<section class="py-5">
+    <div class="container">
+        <div class="enroll-container" data-aos="fade-up">
+            
+            <!-- Success Animation -->
+            <div id="successMsg" class="success-animation">
+                <div class="success-check">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2 class="display-5 mb-4">Enrollment Successful!</h2>
+                <p class="lead mb-5">Thank you for choosing THINK SMART. Our counselor will contact you within 30 minutes.</p>
+                <a href="{% url 'home' %}" class="btn btn-success btn-lg px-5">← Back to Home</a>
+            </div>
+
+            <!-- Form -->
+            <div id="enrollForm">
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <!-- Step 1: Student Info -->
+                <div id="step1" class="enroll-step active">
+                    <div class="progress-step">
+                        <span>1. Student Details</span>
+                        <span>2. Course Selection</span>
+                        <span>3. Parent Contact</span>
+                        <span>4. Confirm</span>
+                    </div>
+                    
+                    <form method="POST" id="enrollFormSubmit">
+                        {% csrf_token %}
+                        
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="studentName" name="name" placeholder="Student Name" required>
+                            <label for="studentName">Student Full Name *</label>
+                        </div>
+                        
+                        <div class="form-floating">
+                            <input type="tel" class="form-control" id="studentPhone" name="phone" placeholder="Phone Number" required>
+                            <label for="studentPhone">Student Phone *</label>
+                        </div>
+                        
+                        <button type="button" class="btn btn-outline-light w-100 mb-4" onclick="nextStep(2)">
+                            Continue <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Course Selection -->
+                <div id="step2" class="enroll-step">
+                    <div class="progress-step">
+                        <span>1. Student Details</span>
+                        <span class="active">2. Course Selection</span>
+                        <span>3. Parent Contact</span>
+                        <span>4. Confirm</span>
+                    </div>
+                    
+                    <h4 class="mb-4 text-center">Choose Your Course</h4>
+                    
+                    <div class="course-preview active" onclick="selectCourse('class9')">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-seedling text-warning me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5>Class 9 Foundation</h5>
+                                <p class="mb-0">₹25,000/year • 4-6 PM • Mr. Sharma</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-preview" onclick="selectCourse('class10')">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-award text-warning me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5>Class 10 Boards</h5>
+                                <p class="mb-0">₹30,000/year • 5-7 PM • Ms. Verma</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-preview" onclick="selectCourse('class11')">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-flask text-warning me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5>Class 11 Science</h5>
+                                <p class="mb-0">₹40,000/year • 3-6 PM • Mr. Singh</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-preview" onclick="selectCourse('class12')">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-trophy text-warning me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5>Class 12 Boards+JEE</h5>
+                                <p class="mb-0">₹45,000/year • 6-8 PM • Ms. Gupta</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="selectedCourse" name="course" value="">
+                    <button type="button" class="btn btn-outline-light w-100 mb-3" onclick="nextStep(3)">Continue</button>
+                    <button type="button" class="btn btn-secondary w-100" onclick="prevStep(1)">← Back</button>
+                </div>
+
+                <!-- Step 3: Parent Contact -->
+                <div id="step3" class="enroll-step">
+                    <div class="progress-step">
+                        <span>1. Student Details</span>
+                        <span>2. Course Selection</span>
+                        <span class="active">3. Parent Contact</span>
+                        <span>4. Confirm</span>
+                    </div>
+                    
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="parentName" name="parent_name" placeholder="Parent Name">
+                        <label for="parentName">Parent/Guardian Name</label>
+                    </div>
+                    
+                    <div class="form-floating">
+                        <input type="tel" class="form-control" id="parentPhone" name="parent_phone" placeholder="Parent Phone *" required>
+                        <label for="parentPhone">Parent Phone Number *</label>
+                    </div>
+                    
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms" style="font-size: 0.95rem;">
+                            I agree to the <a href="#" style="color: #facc15;">Terms & Conditions</a> and <a href="#" style="color: #facc15;">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="button" class="btn btn-outline-light w-100 mb-3" onclick="nextStep(4)">Review & Submit</button>
+                    <button type="button" class="btn btn-secondary w-100" onclick="prevStep(2)">← Back</button>
+                </div>
+
+                <!-- Step 4: Review & Submit -->
+                <div id="step4" class="enroll-step">
+                    <div class="progress-step">
+                        <span>1. Student Details</span>
+                        <span>2. Course Selection</span>
+                        <span>3. Parent Contact</span>
+                        <span class="active">4. Confirm Enrollment</span>
+                    </div>
+                    
+                    <div class="alert alert-success">
+                        <h5>✅ Review Your Details</h5>
+                        <div id="reviewDetails"></div>
+                    </div>
+                    
+                    <button type="submit" form="enrollFormSubmit" class="btn btn-submit">
+                        <i class="fas fa-lock me-2"></i>Secure My Seat Now
+                    </button>
+                    <button type="button" class="btn btn-secondary w-100 mt-3" onclick="prevStep(3)">← Edit Details</button>
+                </div>
+            </div>
+
+            <!-- WhatsApp Backup -->
+            <a href="https://wa.me/919876543210?text=Hi%20THINK%20SMART%20team%2C%20I%20want%20to%20enroll%20my%20child..." 
+               class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp me-2"></i>Or WhatsApp Counselor
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+AOS.init({ duration: 1200, once: true });
+
+// Multi-step form logic
+let currentStep = 1;
+const totalSteps = 4;
+
+function nextStep(step) {
+    if (validateCurrentStep()) {
+        document.getElementById(`step${currentStep}`).classList.remove('active');
+        currentStep = step;
+        document.getElementById(`step${currentStep}`).classList.add('active');
+        document.getElementById('progressFill').style.width = `${(currentStep / totalSteps) * 100}%`;
+    }
+}
+
+function prevStep(step) {
+    document.getElementById(`step${currentStep}`).classList.remove('active');
+    currentStep = step;
+    document.getElementById(`step${currentStep}`).classList.add('active');
+    document.getElementById('progressFill').style.width = `${(currentStep / totalSteps) * 100}%`;
+}
+
+function validateCurrentStep() {
+    if (currentStep === 1) {
+        return document.getElementById('studentName').value && document.getElementById('studentPhone').value;
+    }
+    if (currentStep === 2) {
+        return document.getElementById('selectedCourse').value;
+    }
+    if (currentStep === 3) {
+        return document.getElementById('parentPhone').value;
+    }
+    return true;
+}
+
+function selectCourse(course) {
+    document.querySelectorAll('.course-preview').forEach(el => el.classList.remove('active'));
+    event.target.closest('.course-preview').classList.add('active');
+    document.getElementById('selectedCourse').value = course;
+}
+
+function updateReview() {
+    const name = document.getElementById('studentName').value;
+    const phone = document.getElementById('studentPhone').value;
+    const course = document.getElementById('selectedCourse').value;
+    const parentPhone = document.getElementById('parentPhone').value;
+    
+    document.getElementById('reviewDetails').innerHTML = `
+        <div class="mb-3"><strong>Student:</strong> ${name}</div>
+        <div class="mb-3"><strong>Phone:</strong> ${phone}</div>
+        <div class="mb-3"><strong>Course:</strong> ${course.replace('class9', 'Class 9').replace('class10', 'Class 10').replace('class11', 'Class 11').replace('class12', 'Class 12')}</div>
+        <div class="mb-0"><strong>Parent Phone:</strong> ${parentPhone}</div>
+    `;
+}
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(0,0,0,0.98)';
+    } else {
+        navbar.style.background = 'rgba(0,0,0,0.95)';
+    }
+});
+</script>
+</body>
+</html>
